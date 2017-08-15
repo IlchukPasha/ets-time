@@ -6,6 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import './../../../node_modules/moment/locale/en-gb';
+import { filter } from 'lodash';
 
 // Actions
 import { toggleTrackFilters, setTrackFilters } from './../../store/actions/trackActions';
@@ -89,7 +90,7 @@ class Filters extends React.Component {
 
     const isOwnerOrPm = activeUser.roles && (activeUser.roles.includes('owner') || activeUser.roles.includes('pm'));
 
-    const users = us.map(v => {
+    const users = filter(us, { locked: 0 }).map(v => {
       return {
         value: v.id,
         label: `${v.first_name} ${v.last_name}`
@@ -115,7 +116,6 @@ class Filters extends React.Component {
             options={statusTypes}
             onChange={this.changeStatus}
           />
-
           {isOwnerOrPm ? <label className="input-headline">User</label> : null}
           {isOwnerOrPm
             ? <Select

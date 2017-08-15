@@ -8,8 +8,8 @@ const hasRole = require('./../../libs/hasRole');
 module.exports = (req, res, next) => {
   const rules = {
     id: 'required|integer|min:0',
-    project: 'required|min:2',
-    task: 'required|min:3',
+    project: 'required|min:2|max:60',
+    task: 'required|min:3|max:255',
     type_work: 'required|in:' + env.type_works.join(','),
     hours: 'required|numeric|min:0',
     date_task: 'required|regex:/^\\d{4}-\\d{2}-\\d{2}$/|my_date'
